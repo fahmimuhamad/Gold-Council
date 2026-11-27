@@ -1,0 +1,31 @@
+id: ict_fvg_50_retracement
+spec_id: S03
+version: 0.2.0
+status: draft
+family: liquidity
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: fvg
+parameters:
+  retracement: 0.5
+  expires_after_bars: 8
+source_refs:
+- source_id: E05
+  location: LuxAlgo/TradingView/Equiti explainers
+  note: FVG wick-bounded 3-candle gap; CE = 50%; IFVG on close through (SECONDARY)
+- source_id: E01
+  location: Core Content Month 04 'Fair Value Gaps' (video FgacYSN9QEo)
+  note: PRIMARY identified, content NOT verified
+unresolved:
+- Requires prior sweep and/or displacement? (ICT model implies yes)
+- Minimum FVG size
+- FVG active lifetime
+- SL/TP
+- Primary ICT video content not verified (youtube not reachable; transcripts not cleared
+  for ingestion)
+- Human review
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

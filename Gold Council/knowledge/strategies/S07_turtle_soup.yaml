@@ -1,0 +1,29 @@
+id: turtle_soup
+spec_id: S07
+version: 0.2.0
+status: draft
+family: liquidity
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: turtle_soup_wick
+parameters:
+  lookback_bars: 20
+  variant: E04_wick_no_close
+source_refs:
+- source_id: E04
+  location: p4
+  note: false breakout above old high/low with no close beyond
+- source_id: E04
+  location: p8-10
+  note: continuation / ranging / reversal types; entries
+unresolved:
+- Variant E04 vs Raschke/Connors (B02) must be separate strategies; B02 not acquired
+- '''Old high/low'' lookback not specified (20 is a placeholder)'
+- Time-of-day requirement ('always happens at a certain time') not mechanical
+- Entry/SL/TP
+- Human review
+limitations:
+- E04 is a free third-party Telegram compilation, not canonical ICT
+approved_by: null
+approved_at: null

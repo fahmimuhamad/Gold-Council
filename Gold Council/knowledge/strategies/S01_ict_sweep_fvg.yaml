@@ -1,0 +1,35 @@
+id: ict_sweep_fvg
+spec_id: S01
+version: 0.2.0
+status: draft
+family: liquidity
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: fvg
+parameters:
+  sweep_pivot_k: 2
+  fvg_invalidate_on: body_close_far_edge
+  max_bars_sweep_to_fvg: 6
+source_refs:
+- source_id: E05
+  location: LuxAlgo/TradingView/Equiti explainers
+  note: FVG wick-bounded 3-candle gap; CE = 50%; IFVG on close through (SECONDARY)
+- source_id: E01
+  location: Core Content Month 04 'Fair Value Gaps' (video FgacYSN9QEo)
+  note: PRIMARY identified, content NOT verified
+- source_id: E05
+  location: 2022 Mentorship Ep.2 summaries (coconote)
+  note: 'model: sweep -> displacement -> MSS -> FVG entry (SECONDARY)'
+unresolved:
+- Max bars between sweep and FVG (placeholder 6)
+- Whether displacement is required and its threshold
+- Entry at CE vs FVG edge; expiry
+- SL/TP
+- Primary ICT video content not verified (youtube not reachable; transcripts not cleared
+  for ingestion)
+- Human review
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

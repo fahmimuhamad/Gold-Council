@@ -1,0 +1,22 @@
+id: new_york_orb
+spec_id: S09
+version: 0.1.0
+status: draft
+family: momentum
+instrument: XAUUSD
+setup_tf: M5
+context_tf: H1
+detector: orb
+parameters:
+  session_tz: America/New_York
+  open_local: 09:30
+  range_minutes: 30
+source_refs: []
+unresolved:
+- 'Session anchor: equities open 09:30 vs COMEX 08:20 - choose one'
+- SL/TP and expiry rule
+- No source reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

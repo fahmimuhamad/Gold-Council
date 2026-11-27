@@ -1,0 +1,23 @@
+id: london_orb
+spec_id: S08
+version: 0.1.0
+status: draft
+family: momentum
+instrument: XAUUSD
+setup_tf: M5
+context_tf: H1
+detector: orb
+parameters:
+  session_tz: Europe/London
+  open_local: 08:00
+  range_minutes: 30
+source_refs: []
+unresolved:
+- Range length (15/30/60) must be preregistered, one variant
+- SL/TP and expiry rule
+- Broker session hours
+- No source reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

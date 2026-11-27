@@ -3,3 +3,13 @@
 - Primary assistant delegates specialist work and coordinates missing-source requests.
 - Research-only, paper/demo later; no real-account orders.
 - Proposed research risk defaults require verification and approval.
+- 2026-11-27: ROADMAP.md is the single prioritized backlog. STATE.md holds the current snapshot.
+- 2026-11-27: Created `.claude/agents/research-librarian.md` (read/search/web only, no write or download). The other specialist definitions were not regenerated until the user confirms whether the originals exist.
+- 2026-11-27: Spec Steps 15-17 (API adapter), 22 (Telegram) and 23 (scheduled service) are deferred under CLAUDE.md mode. Orchestration will use a mock adapter plus interactive Claude Code subagents.
+- 2026-11-27: First detectors will be the ones that need no disputed definitions (Donchian, ATR compression, NR7, z-score, ORB, FVG geometry). ICT/MSNR/Alchemist strategies remain disabled until source-backed definitions are reviewed.
+- 2026-11-27: User asked the coordinator to do everything without user involvement. The coordinator regenerated 18 agents + 10 skills from the spec, because the originals are unavailable.
+- 2026-11-27: Risk engine trusts the strategy registry, never the signal's own status. It sizes from the worse of planned entry and executable price. Missing state file = kill switch ON. Added config key `max_entry_deviation_points: 50` (draft).
+- 2026-11-27: Created the personal cloud environment "gold-council" with a narrow allowlist of research/data hosts.
+- 2026-11-27: Will not bypass website bot checks to download papers. Those stay manual.
+- 2026-11-27: E03 (Alchemist) and E04 (TS&CRT) accepted as user-supplied research sources (local only). CRT registered explicitly as S23 rather than merged into S06. OCL treated as UNRESOLVED (hypothesis: Open-Close/Gap level) instead of guessed.
+- 2026-11-27 (USER): OCL = Open-Close (Gap) level. S05 now uses the Gap SNR detector (GAP_BULL / GAP_BEAR).
