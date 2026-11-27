@@ -37,25 +37,28 @@ def decode(raw: bytes, period_start: datetime, price_scale: float) -> pd.DataFra
     return df[~closed].reset_index(drop=True)
 
 
-def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, pause: float = 1.0) -> bytes:
+def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, pause: float = 2.0,
+                attempts: int = 10) -> bytes | None:
+    """Download one monthly file (cached). The server throttles with 503s and resets; retry patiently.
+    Returns None if the month could not be fetched (caller records the gap; nothing is invented)."""
     cache.mkdir(parents=True, exist_ok=True)
     f = cache / f"{symbol}_{year}_{month:02d}_{side}_hour.bi5"
     if f.exists():
         return f.read_bytes()
     url = f"{BASE}/{symbol}/{year}/{month - 1:02d}/{side}_candles_hour_1.bi5"
     req = urllib.request.Request(url, headers={"User-Agent": "gold-council-research/0.1"})
-    for attempt in range(7):
+    for attempt in range(attempts):
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 raw = r.read()
+            if raw:
+                lzma.decompress(raw)          # verify it's a real data file before caching
             f.write_bytes(raw)
             time.sleep(pause)
             return raw
         except Exception:
-            if attempt == 6:
-                raise
-            time.sleep(min(60, 3 * 2 ** attempt))   # server rate-limits with 503
-    raise RuntimeError("unreachable")
+            time.sleep(min(90, 5 * 2 ** attempt))
+    return None
 
 
 def build_hourly(symbol: str, start: tuple[int, int], end: tuple[int, int], cache: Path,
@@ -67,6 +70,12 @@ def build_hourly(symbol: str, start: tuple[int, int], end: tuple[int, int], cach
         ps = datetime(y, m, 1, tzinfo=timezone.utc)
         bid_raw = fetch_month(symbol, y, m, "BID", cache)
         ask_raw = fetch_month(symbol, y, m, "ASK", cache)
+        if bid_raw is None or ask_raw is None:
+            files[f"{y}-{m:02d}"] = {"status": "MISSING (download failed after retries)"}
+            print(f"MISSING {y}-{m:02d}", flush=True)
+            y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+            continue
+        print(f"ok {y}-{m:02d}", flush=True)
         files[f"{y}-{m:02d}"] = {"bid_sha256": hashlib.sha256(bid_raw).hexdigest()[:16],
                                  "ask_sha256": hashlib.sha256(ask_raw).hexdigest()[:16]}
         bid = decode(bid_raw, ps, price_scale)
