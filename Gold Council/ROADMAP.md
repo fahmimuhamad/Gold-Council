@@ -67,3 +67,4 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 - 2026-11-27: User confirmed OCL = Open-Close (Gap). Librarian found ICT primary videos (unreachable) + consistent secondary definitions; encoded FVG lifecycle, displacement, sweep, CISD, volume imbalance as drafts. 129 tests pass.
 - 2026-11-27: Downloaded real XAUUSD H1 (Dukascopy). Pre-registered round 1 on DEV: Donchian/CRT-50%/CRT-far all FAIL (no edge, robust to the same-bar rule and zero costs). Nothing advanced to validation.
 - 2026-11-27: Round 2 pre-registered, reviewed (PASS), run on DEV: no pass. CRT improved (H4 -0.155R, D1 -0.05R) but no edge; Donchian H4 +0.083R not significant; daily Donchian under-sampled.
+- 2026-11-27: Round 3: no pass (11 trials). Asian-session drift gross effect confirmed but cost-dominated; RSI2 under-sampled; weekend negative.
