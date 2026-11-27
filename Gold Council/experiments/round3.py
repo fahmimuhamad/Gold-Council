@@ -58,6 +58,7 @@ def main():
     rets = {k: np.array([t.net_bp for t in v]) for k, v in trades.items()}
     srs += [r.mean() / r.std(ddof=1) for r in rets.values() if len(r) > 2]
     var_sr, n_trials = float(np.var(srs, ddof=1)), len(srs)
+    assert n_trials == 11, f"expected 11 cumulative trials, got {n_trials}"
 
     pvals = {k: newey_west_t(r, 5)[1] for k, r in rets.items()}
     hm = holm(pvals, 0.05)

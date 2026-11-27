@@ -90,7 +90,7 @@ def weekend_long(d1: pd.DataFrame, spread: float, slip: float, fin_rate: float, 
     wd = d1["broker_open"].dt.weekday
     out = []
     for i in range(len(d1) - 1):
-        if wd.iloc[i] != 4 or wd.iloc[i + 1] != 0:
+        if wd.iloc[i] != 4 or wd.iloc[i + 1] != 0 or (d1["time"].iloc[i + 1] - d1["time"].iloc[i]).days > 3:
             continue
         if not (pd.notna(s.iloc[i]) and c.iloc[i] > s.iloc[i]):
             continue
