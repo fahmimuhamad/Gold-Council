@@ -1,1 +1,38 @@
 source_id,title,author,edition,source_url,access_status,rights_basis,local_path,sha256,verification_status,notes
+B01,The Art and Science of Technical Analysis,Adam Grimes,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 structure/setups
+B02,Street Smarts,Linda Bradford Raschke; Laurence Connors,,,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 Turtle Soup; availability unverified
+B03,Mind Over Markets,James Dalton; Eric Jones; Robert Dalton,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 Market Profile
+B04,Maximum Trading Gains with Anchored VWAP,Brian Shannon,,,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 AVWAP
+B05,Algorithmic Trading: Winning Strategies and Their Rationale,Ernest P. Chan,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 momentum/mean reversion
+B06,Evidence-Based Technical Analysis,David Aronson,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 statistical validation
+B07,Advances in Financial Machine Learning,Marcos López de Prado,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 leakage/overfitting
+B08,Wyckoff 2.0: Structures Volume Profile and Order Flow,Rubén Villahermosa,,,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 Wyckoff
+B09,Intermarket Analysis,John J. Murphy,,https://www.wiley.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 gold/currencies/bonds
+B10,Trade Your Way to Financial Freedom,Van K. Tharp,,https://www.mheducation.com/,NEEDS_USER_ACCESS,purchase required,,,UNVERIFIED,P1 expectancy/sizing
+B11,Trading Systems and Methods,Perry Kaufman,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P2
+B12,The Evaluation and Optimization of Trading Strategies,Robert Pardo,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P2 walk-forward
+B13,Advanced Futures Trading Strategies,Robert Carver,,https://www.harriman-house.com/,OPEN,unknown,,,UNVERIFIED,P2
+B14,Trading and Exchanges,Larry Harris,,https://global.oup.com/,OPEN,unknown,,,UNVERIFIED,P2 microstructure
+B15,Trading Price Action Trends,Al Brooks,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P2
+B16,Trading Price Action Trading Ranges,Al Brooks,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P2
+B17,Trading Price Action Reversals,Al Brooks,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P2
+B18,The Wyckoff Methodology in Depth,Rubén Villahermosa,,,OPEN,unknown,,,UNVERIFIED,P2
+B19,Markets in Profile,James Dalton; Robert Dalton; Eric Jones,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P3
+B20,Systematic Trading,Robert Carver,,https://www.harriman-house.com/,OPEN,unknown,,,UNVERIFIED,P3
+B21,The Complete TurtleTrader,Michael Covel,,,OPEN,unknown,,,UNVERIFIED,P3
+B22,Technical Analysis of the Financial Markets,John J. Murphy,,https://www.penguinrandomhouse.com/,OPEN,unknown,,,UNVERIFIED,P3
+B23,Trading with Intermarket Analysis,John J. Murphy,,https://www.wiley.com/,OPEN,unknown,,,UNVERIFIED,P3
+B24,Trading in the Zone,Mark Douglas,,https://www.penguinrandomhouse.com/,OPEN,unknown,,,UNVERIFIED,P3
+P01,The Probability of Backtest Overfitting,Bailey; Borwein; López de Prado; Zhu,,https://escholarship.org/uc/item/4w1110bb,SEARCHING,claimed open access (spec),,,UNVERIFIED,free research
+P02,The Deflated Sharpe Ratio,Bailey; López de Prado,,https://doi.org/10.2139/ssrn.2460551,SEARCHING,SSRN (spec),,,UNVERIFIED,free research
+P03,Pseudo-Mathematics and Financial Charlatanism,Bailey; Borwein; López de Prado; Zhu,,https://ssrn.com/abstract=2308659,SEARCHING,SSRN (spec),,,UNVERIFIED,free research
+P04,Time Series Momentum,Moskowitz; Ooi; Pedersen,,https://www.aqr.com/insights/research/journal-article/time-series-momentum,SEARCHING,unknown,,,UNVERIFIED,hypothesis source only
+P05,A Century of Evidence on Trend-Following Investing,Hurst; Ooi; Pedersen,,https://www.aqr.com/Insights/Research/Journal-Article/A-Century-of-Evidence-on-Trend-Following-Investing,SEARCHING,unknown,,,UNVERIFIED,hypothesis source only
+P06,Intraday Time-Series Momentum: Evidence from China,,,https://doi.org/10.1002/fut.22084,SEARCHING,likely paywalled,,,UNVERIFIED,commodities; not XAUUSD evidence
+D01,TSMOM original paper data,AQR,,https://www.aqr.com/Insights/Datasets/Time-Series-Momentum-Original-Paper-Data,SEARCHING,unknown,,,UNVERIFIED,dataset
+D02,FRED DFII10 / DGS10,Federal Reserve Bank of St. Louis,,https://fred.stlouisfed.org/series/DFII10,SEARCHING,public data (check terms),,,UNVERIFIED,use ALFRED vintages for point-in-time
+D03,CFTC Commitments of Traders,CFTC,,https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm,SEARCHING,public data,,,UNVERIFIED,weekly; publication lag
+D04,World Gold Council Goldhub research,World Gold Council,,https://www.gold.org/goldhub/research,SEARCHING,check terms,,,UNVERIFIED,gold-specific context
+E01,ICT core content and mentorships,Inner Circle Trader,,https://www.youtube.com/@InnerCircleTrader/playlists,SEARCHING,official free channel; no auto-download,,,UNVERIFIED,needed for S01-S03 S07
+E02,MSNR original materials,,,,NEEDS_USER_ACCESS,user-held materials,,,UNVERIFIED,blocks S04 S05
+E03,Alchemist original materials,,,,NEEDS_USER_ACCESS,user-held materials,,,UNVERIFIED,blocks S06
