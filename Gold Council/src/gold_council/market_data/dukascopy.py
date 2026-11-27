@@ -37,8 +37,8 @@ def decode(raw: bytes, period_start: datetime, price_scale: float) -> pd.DataFra
     return df[~closed].reset_index(drop=True)
 
 
-def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, pause: float = 2.0,
-                attempts: int = 10) -> bytes | None:
+def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, pause: float = 1.0,
+                attempts: int = 25) -> bytes | None:
     """Download one monthly file (cached). The server throttles with 503s and resets; retry patiently.
     Returns None if the month could not be fetched (caller records the gap; nothing is invented)."""
     cache.mkdir(parents=True, exist_ok=True)
@@ -57,7 +57,7 @@ def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, paus
             time.sleep(pause)
             return raw
         except Exception:
-            time.sleep(min(90, 5 * 2 ** attempt))
+            time.sleep(3)   # failures are intermittent (~50%), not rate-based: retry quickly
     return None
 
 
