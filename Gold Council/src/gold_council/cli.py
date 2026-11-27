@@ -178,7 +178,7 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--spread", type=float, required=True, help="round-trip spread in price units (e.g. 0.30)")
     b.add_argument("--slippage", type=float, default=0.0)
     b.add_argument("--latency-bars", type=int, default=0)
-    b.add_argument("--label", required=True, choices=["SYNTHETIC", "REAL_BROKER", "OTHER"],
+    b.add_argument("--label", required=True, choices=["SYNTHETIC", "REAL_PUBLIC", "REAL_BROKER", "OTHER"],
                    help="what kind of data this is; printed on every result")
     args = ap.parse_args(argv)
 
