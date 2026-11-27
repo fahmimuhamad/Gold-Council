@@ -6,7 +6,7 @@ Partly built ahead of schedule (tested, but their milestone gates are NOT passed
 Next milestone: **M1, the knowledge library.** Code works, but no books or papers are ingested yet.
 
 Facts:
-- Tests: 129 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
+- Tests: 140 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
 - Agents: 18 regenerated from spec in .claude/agents (not your originals). Skills: 10 in .claude/skills. Restart Claude Code to load them.
 - Library: 2 sources INDEXED (E03 Alchemist, E04 TS&CRT; 24 chunks; search verified). FRED DFII10/DGS10 downloaded to data/historical/macro (latest values, not vintages).
 - Strategies: 16 drafts (S04-S07 now source-backed, new S23 CRT, F01 BOS), 0 approved, 0 able to emit candidates.
@@ -17,6 +17,7 @@ Facts:
 
 Real data: Dukascopy XAUUSD H1 2015-01..2026-10 (70,063 bars, local only, gitignored).
 Round 1 results (DEV 2015-2022): Donchian, CRT-50%, CRT-far all FAIL, no edge after costs (reports/2026-11-27_results_baseline_A_round1.md).
+Round 2 (NY-close H4/D1, trend exits, CRT time/bias filters): 3 FAIL, 2 INSUFFICIENT SAMPLE; best = Donchian H4 +0.083R with CI incl. 0 (reports/2026-11-27_results_round2.md). 8 trials total, 0 passes.
 Backtester: baseline A (OHLC, conservative fills, sealed holdout) built + reviewed; sanity-checked on SYNTHETIC data only (reports/2026-11-27_backtester_build_and_review.md).
 
 Not implemented: paper broker service, council orchestration, MT5 exporters, dashboard, alerts.
