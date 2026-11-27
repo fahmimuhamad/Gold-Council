@@ -1,0 +1,20 @@
+id: donchian_trend
+spec_id: S16
+version: 0.1.0
+status: draft
+family: trend
+instrument: XAUUSD
+setup_tf: H1
+context_tf: H4
+detector: donchian
+parameters:
+  n: 20
+source_refs: []
+unresolved:
+- Exit rule (opposite channel n/2? ATR stop?)
+- Position management
+- Source B21 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

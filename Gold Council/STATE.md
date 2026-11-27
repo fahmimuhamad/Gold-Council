@@ -1,16 +1,22 @@
 # Project state
-Updated: 2026-11-27 (coordinator, cloud session)
+Updated: 2026-11-27 (coordinator)
 
-Current milestone: **M0, project scaffold and config. NOT STARTED.**
-Verification done: see reports/2026-11-27_setup_audit.md.
+Current milestone: **M0 DONE** (gate passed: CLI help + 85 tests pass, offline-only, no execution capability, rules + roadmap exist).
+Partly built ahead of schedule (tested, but their milestone gates are NOT passed): knowledge library code (M1), detectors/regime/registry (M2), risk engine (M5).
+Next milestone: **M1, the knowledge library.** Code works, but no books or papers are ingested yet.
 
 Facts:
-- Implemented and tested features: **none**. No CLI, RAG, strategy engine, regime engine, market feed, risk engine, backtest, dashboard or EA exists.
-- Agents: `.claude/agents/` was missing from the repo, so the 18 specialists, the assistant definition and the skill were not uploaded. Only `research-librarian.md` has been created (2026-11-27).
-- Knowledge library: 0 local files. catalog.csv lists 24 books, 6 papers, 4 datasets and 3 education sources, all UNVERIFIED or NEEDS_USER_ACCESS.
-- Trading: offline research only. No real-money or demo execution exists or is enabled.
+- Tests: 85 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
+- Agents: 18 regenerated from spec in .claude/agents (not your originals). Skills: 10 in .claude/skills. Restart Claude Code to load them.
+- Library: 0 sources ingested. FRED DFII10/DGS10 downloaded to data/historical/macro (latest values, not vintages).
+- Strategies: 14 drafts, 0 approved, 0 able to emit candidates.
+- Trading: no order execution exists. allow_real_account is hard-locked false.
+- Environment: this cloud session now uses the personal "gold-council" environment (allows eScholarship, AMS, SSRN, FRED/ALFRED, CFTC, AQR).
 
-Next actions (see ROADMAP.md):
-1. User: locate the original `.claude/` folder (D-01/U-04) or approve regeneration.
-2. Coordinator: .gitignore + M0 scaffold + real tests (D-02..D-04).
-3. Librarian results → reports/2026-11-27_librarian_sources.md; user approves open-paper downloads (U-02).
+Not implemented: backtester, paper broker service, council orchestration, MT5 exporters, dashboard, alerts.
+
+Next actions (coordinator, no user input needed):
+1. D-12 backtest replay engine + baseline A on synthetic fixtures (no profitability claims).
+2. D-11 MT5 read-only exporter source code (compiling it needs the user's Mac later).
+3. CFTC COT + AQR dataset adapters.
+Blocked on user (optional): book purchases, MSNR/Alchemist notes, MT5 history export, 3 paper PDFs via browser.

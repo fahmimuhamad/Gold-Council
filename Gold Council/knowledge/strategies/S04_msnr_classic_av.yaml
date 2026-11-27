@@ -1,0 +1,20 @@
+id: msnr_classic_av
+spec_id: S04
+version: 0.1.0
+status: draft
+family: price_action
+instrument: XAUUSD
+setup_tf: H1
+context_tf: H4
+detector: null
+parameters: {}
+source_refs: []
+unresolved:
+- 'Classic A/V level: body vs wick'
+- Freshness definition
+- Validation/hit rule (avoid circular definition)
+- Source E02 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

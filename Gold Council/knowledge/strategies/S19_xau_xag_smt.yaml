@@ -1,0 +1,19 @@
+id: xau_xag_smt
+spec_id: S19
+version: 0.1.0
+status: draft
+family: intermarket
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: null
+parameters: {}
+source_refs: []
+unresolved:
+- SMT/PSP definition (ICT); confirmation feature only
+- Requires time-aligned XAGUSD data
+- Source E01 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

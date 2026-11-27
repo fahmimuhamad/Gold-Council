@@ -1,0 +1,20 @@
+id: nr7_breakout
+spec_id: S18
+version: 0.1.0
+status: draft
+family: volatility
+instrument: XAUUSD
+setup_tf: H1
+context_tf: D1
+detector: nr7
+parameters:
+  n: 7
+source_refs: []
+unresolved:
+- Breakout trigger and expiry after NR7 bar
+- SL/TP
+- No source reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

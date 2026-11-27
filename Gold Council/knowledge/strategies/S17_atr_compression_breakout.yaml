@@ -1,0 +1,22 @@
+id: atr_compression_breakout
+spec_id: S17
+version: 0.1.0
+status: draft
+family: volatility
+instrument: XAUUSD
+setup_tf: H1
+context_tf: H4
+detector: atr_compression
+parameters:
+  n: 14
+  lookback: 100
+  pct_max: 0.1
+source_refs: []
+unresolved:
+- Breakout trigger after compression
+- SL/TP
+- No source reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

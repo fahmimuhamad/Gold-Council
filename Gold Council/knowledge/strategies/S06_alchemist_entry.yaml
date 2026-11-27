@@ -1,0 +1,18 @@
+id: alchemist_entry
+spec_id: S06
+version: 0.1.0
+status: draft
+family: price_action
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: null
+parameters: {}
+source_refs: []
+unresolved:
+- Entire entry model undefined; user materials required
+- Source E03 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

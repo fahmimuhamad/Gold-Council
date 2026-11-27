@@ -1,0 +1,39 @@
+# Gold Council configuration. Research defaults only - not validated or optimal.
+mode: offline            # offline | paper. There is no live mode.
+instrument:
+  symbol: XAUUSD         # set your broker's exact symbol (e.g. XAUUSD.vx) once known
+  secondary: [XAGUSD]
+paths:
+  knowledge_db: data/knowledge.db
+  risk_state: data/risk_state.json
+  strategies: knowledge/strategies
+risk:
+  risk_per_trade_pct: 0.25
+  daily_drawdown_limit_pct: 2.0
+  total_drawdown_limit_pct: 8.0
+  internal_daily_stop_pct: 1.5
+  internal_total_stop_pct: 6.0
+  max_trades_per_day: 3
+  max_open_positions: 1
+  max_consecutive_losses: 3
+  min_reward_risk: 2.0
+  max_spread_points: 60
+  max_quote_age_seconds: 10
+  max_entry_deviation_points: 50
+  news_blackout_minutes_before: 30
+  news_blackout_minutes_after: 30
+  slippage_allowance_points: 20
+  martingale: false
+  grid_recovery: false
+  allow_real_account: false   # hard-locked: config loading fails if true
+regime:                         # draft thresholds; must be re-estimated on development data
+  adx_period: 14
+  adx_trend_min: 25
+  er_period: 20
+  er_trend_min: 0.30
+  atr_period: 14
+  atr_pct_lookback: 250
+  atr_pct_high: 0.80
+  atr_pct_low: 0.20
+  ema_period: 50
+  min_bars: 300

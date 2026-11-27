@@ -1,0 +1,22 @@
+id: ict_fvg_50_retracement
+spec_id: S03
+version: 0.1.0
+status: draft
+family: liquidity
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: fvg
+parameters:
+  retracement: 0.5
+  expires_after_bars: 8
+source_refs: []
+unresolved:
+- Requires confirmed sweep? displacement? (source definitions needed)
+- Structural SL rule
+- 'Target selection: pre-existing opposing liquidity definition'
+- Source E01 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null

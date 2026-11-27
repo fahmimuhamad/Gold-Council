@@ -1,0 +1,19 @@
+id: msnr_ocl_confirmation
+spec_id: S05
+version: 0.1.0
+status: draft
+family: price_action
+instrument: XAUUSD
+setup_tf: M15
+context_tf: H1
+detector: null
+parameters: {}
+source_refs: []
+unresolved:
+- OCL formation and price
+- Confirmation rule and timeframe relationship
+- Source E02 not acquired / not reviewed
+limitations:
+- Hypothesis only; no evidence of profitability on XAUUSD
+approved_by: null
+approved_at: null
