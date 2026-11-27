@@ -42,8 +42,8 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 
 | ID | Pri | Item | Owner | Status |
 |---|---|---|---|---|
-| R-01 | P0 | Verify lawful sources for 9 free papers/datasets | Research Librarian | SEARCHING |
-| R-02 | P0 | Rights/edition check for 10 P1 books | Research Librarian | SEARCHING |
+| R-01 | P0 | Verify lawful sources for 9 free papers/datasets | Research Librarian | PARTLY DONE: 6 found open, P02/DGS10/WGC unconfirmed |
+| R-02 | P0 | Rights/edition check for 10 P1 books | Research Librarian | DONE: all paid; Street Smarts out of print |
 | R-03 | P0 | MSNR + Alchemist original definitions (Classic A/V, OCL, freshness, confirmation) | **you** (only source) | NEEDS_USER_ACCESS |
 | R-04 | P1 | ICT official definitions: FVG, displacement, CISD, liquidity sweep, Turtle Soup variants | Librarian → you (transcripts/notes) | OPEN |
 | R-05 | P1 | Broker specifics: symbol suffix, server time/DST, tick value, commissions, swaps | **you** (from MT5) | OPEN |
