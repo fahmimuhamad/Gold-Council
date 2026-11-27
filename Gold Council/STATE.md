@@ -15,6 +15,8 @@ Facts:
 - Trading: no order execution exists. allow_real_account is hard-locked false.
 - Environment: this cloud session now uses the personal "gold-council" environment (allows eScholarship, AMS, SSRN, FRED/ALFRED, CFTC, AQR).
 
+Real data: Dukascopy XAUUSD H1 2015-01..2026-10 (70,063 bars, local only, gitignored).
+Round 1 results (DEV 2015-2022): Donchian, CRT-50%, CRT-far all FAIL, no edge after costs (reports/2026-11-27_results_baseline_A_round1.md).
 Backtester: baseline A (OHLC, conservative fills, sealed holdout) built + reviewed; sanity-checked on SYNTHETIC data only (reports/2026-11-27_backtester_build_and_review.md).
 
 Not implemented: paper broker service, council orchestration, MT5 exporters, dashboard, alerts.

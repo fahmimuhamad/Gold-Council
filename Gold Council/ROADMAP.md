@@ -65,3 +65,4 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 - 2026-11-27: D-12 backtester built; independent review FAIL -> 5 fixes; 116 tests pass. Synthetic sanity run shows no edge (as expected).
 - 2026-11-27: D-11 read-only MT5 history export script written (not compiled - no MetaEditor here). Importer supports broker clocks like America/New_York+7. 118 tests pass.
 - 2026-11-27: User confirmed OCL = Open-Close (Gap). Librarian found ICT primary videos (unreachable) + consistent secondary definitions; encoded FVG lifecycle, displacement, sweep, CISD, volume imbalance as drafts. 129 tests pass.
+- 2026-11-27: Downloaded real XAUUSD H1 (Dukascopy). Pre-registered round 1 on DEV: Donchian/CRT-50%/CRT-far all FAIL (no edge, robust to the same-bar rule and zero costs). Nothing advanced to validation.
