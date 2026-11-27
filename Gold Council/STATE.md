@@ -6,10 +6,11 @@ Partly built ahead of schedule (tested, but their milestone gates are NOT passed
 Next milestone: **M1, the knowledge library.** Code works, but no books or papers are ingested yet.
 
 Facts:
-- Tests: 85 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
+- Tests: 103 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
 - Agents: 18 regenerated from spec in .claude/agents (not your originals). Skills: 10 in .claude/skills. Restart Claude Code to load them.
-- Library: 0 sources ingested. FRED DFII10/DGS10 downloaded to data/historical/macro (latest values, not vintages).
-- Strategies: 14 drafts, 0 approved, 0 able to emit candidates.
+- Library: 2 sources INDEXED (E03 Alchemist, E04 TS&CRT; 24 chunks; search verified). FRED DFII10/DGS10 downloaded to data/historical/macro (latest values, not vintages).
+- Strategies: 16 drafts (S04-S07 now source-backed, new S23 CRT, F01 BOS), 0 approved, 0 able to emit candidates.
+- Detectors: 10 (FVG, Donchian, NR7, ATR compression, z-score, ORB, SNR+freshness, BOS, CRT, Turtle Soup wick).
 - Trading: no order execution exists. allow_real_account is hard-locked false.
 - Environment: this cloud session now uses the personal "gold-council" environment (allows eScholarship, AMS, SSRN, FRED/ALFRED, CFTC, AQR).
 

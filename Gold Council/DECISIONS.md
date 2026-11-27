@@ -11,3 +11,4 @@
 - 2026-11-27: Risk engine trusts the strategy registry, never the signal's own status. It sizes from the worse of planned entry and executable price. Missing state file = kill switch ON. Added config key `max_entry_deviation_points: 50` (draft).
 - 2026-11-27: Created the personal cloud environment "gold-council" with a narrow allowlist of research/data hosts.
 - 2026-11-27: Will not bypass website bot checks to download papers. Those stay manual.
+- 2026-11-27: E03 (Alchemist) and E04 (TS&CRT) accepted as user-supplied research sources (local only). CRT registered explicitly as S23 rather than merged into S06. OCL treated as UNRESOLVED (hypothesis: Open-Close/Gap level) instead of guessed.

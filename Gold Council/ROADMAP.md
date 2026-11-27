@@ -44,7 +44,7 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 |---|---|---|---|---|
 | R-01 | P0 | Verify lawful sources for 9 free papers/datasets | Research Librarian | PARTLY DONE: 6 found open, P02/DGS10/WGC unconfirmed |
 | R-02 | P0 | Rights/edition check for 10 P1 books | Research Librarian | DONE: all paid; Street Smarts out of print |
-| R-03 | P0 | MSNR + Alchemist original definitions (Classic A/V, OCL, freshness, confirmation) | **you** (only source) | NEEDS_USER_ACCESS |
+| R-03 | P0 | MSNR + Alchemist definitions | you → coordinator | PARTLY DONE: E03 received + extracted; OCL/rejection/QML open |
 | R-04 | P1 | ICT official definitions: FVG, displacement, CISD, liquidity sweep, Turtle Soup variants | Librarian → you (transcripts/notes) | OPEN |
 | R-05 | P1 | Broker specifics: symbol suffix, server time/DST, tick value, commissions, swaps | **you** (from MT5) | OPEN |
 | R-06 | P2 | P2 books (8) | Librarian | OPEN |
@@ -61,3 +61,4 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 
 ## Progress log
 - 2026-11-27: D-01 (agents regenerated from spec), D-02, D-03, D-04, D-05, D-07, D-08 (6 detectors), D-09 (draft), D-10 done and tested. D-06: the paper sites block automated downloads (bot check), so the papers need a browser. FRED yields downloaded. The independent review found 3 major risk defects; all are fixed with regression tests.
+- 2026-11-27: Received E03 Alchemist + E04 TS&CRT. Ingested, vision-reviewed key diagrams, extracted definitions (reports/2026-11-27_msnr_crt_definitions.md). Added SNR/freshness, BOS, CRT, Turtle Soup detectors. 103 tests pass.

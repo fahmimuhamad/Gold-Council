@@ -1,20 +1,40 @@
 id: msnr_classic_av
 spec_id: S04
-version: 0.1.0
+version: 0.2.0
 status: draft
 family: price_action
 instrument: XAUUSD
 setup_tf: H1
 context_tf: H4
-detector: null
-parameters: {}
-source_refs: []
+detector: snr
+parameters:
+  price_from: close_first
+  include_gap_levels: true
+source_refs:
+- source_id: E03
+  location: p8
+  note: A = bullish close->bearish open; V = bearish close->bullish open; wicks ignored
+- source_id: E03
+  location: p9,p12-13
+  note: Gap (open-close) SNR; flipped SNR diagrams (vision-reviewed)
+- source_id: E03
+  location: p14-15
+  note: fresh/unfresh/flip rules
+- source_id: E03
+  location: p10
+  note: levels are zones of interest, never automatic signals
 unresolved:
-- 'Classic A/V level: body vs wick'
-- Freshness definition
-- Validation/hit rule (avoid circular definition)
-- Source E02 not acquired / not reviewed
+- 'Level price: close of candle 1 vs open of candle 2 (source treats as one line;
+  both stored)'
+- 'Post-flip freshness: p15 wording ambiguous; encoded as FLIPPED_FRESH -> first non-breaking
+  touch = flip_retest'
+- 'Which timeframes'' levels count (source: Weekly/Daily storyline, H4/H1 confirmation)'
+- Rejection candle has no numeric definition (wick/body ratios) - p16-17
+- Entry/SL/TP not defined for the level alone; E03 always requires confluence
+- Human review of this encoding (status stays draft until approved)
 limitations:
-- Hypothesis only; no evidence of profitability on XAUUSD
+- E03 is the Alchemist variant of Malaysian SNR, not the original MSNR teaching
+- Author's 80-90% win rate (p2) and 1:21-1:26 RR examples are unverified, cherry-picked
+  illustrations
 approved_by: null
 approved_at: null

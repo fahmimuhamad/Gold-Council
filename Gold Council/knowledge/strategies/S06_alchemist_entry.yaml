@@ -1,17 +1,48 @@
 id: alchemist_entry
 spec_id: S06
-version: 0.1.0
+version: 0.2.0
 status: draft
 family: price_action
 instrument: XAUUSD
 setup_tf: M15
 context_tf: H1
 detector: null
-parameters: {}
-source_refs: []
+parameters:
+  htf_to_confirm_tf:
+    W1: H4
+    D1: H1
+  sessions:
+  - London
+  - New York
+source_refs:
+- source_id: E03
+  location: p22
+  note: '2 TF confirmation rule: HTF fresh level wick rejection -> breakout 2 TFs
+    lower -> pullback to right shoulder/QML'
+- source_id: E03
+  location: p19-21
+  note: 'storyline: weekly direction, daily retracement, H4/H1 confirmation, roadblocks'
+- source_id: E03
+  location: p37
+  note: BOS valid only on body close; wait for retracement; trade in BOS direction
+- source_id: E03
+  location: p32-33
+  note: 'trendline confluence: enter only at point 3 wick rejection, never point 2'
+- source_id: E03
+  location: p36
+  note: London and NY killzones only
+- source_id: E03
+  location: p38-51
+  note: three worked examples (illustrations, not evidence)
 unresolved:
-- Entire entry model undefined; user materials required
-- Source E03 not acquired / not reviewed
+- Storyline direction is not mechanically defined (which fresh level is 'start'/'end')
+- Rejection candle thresholds (p16-17)
+- QML / right-shoulder definition (only diagrams, p33)
+- Swing pivot length for BOS (k) not given
+- Trendline construction is discretionary (line chart, 'at least two SNRs')
+- Killzone clock times not given in E03
+- Stop-loss and take-profit rules not stated (examples only)
+- Human review
 limitations:
 - Hypothesis only; no evidence of profitability on XAUUSD
 approved_by: null

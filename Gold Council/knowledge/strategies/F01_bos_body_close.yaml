@@ -1,0 +1,23 @@
+id: bos_body_close
+spec_id: F01
+version: 0.1.0
+status: draft
+family: structure_feature
+instrument: XAUUSD
+setup_tf: H1
+context_tf: null
+detector: bos
+parameters:
+  pivot_k: 2
+source_refs:
+- source_id: E03
+  location: p36-37
+  note: BOS = body close beyond swing high/low; wick does not count
+unresolved:
+- Swing pivot length k not given in source
+- Internal vs external structure distinction (p41) undefined
+- Human review
+limitations:
+- Confirmation feature only, not a standalone entry
+approved_by: null
+approved_at: null

@@ -122,7 +122,18 @@ def opening_range(df: pd.DataFrame, bar: timedelta, tz: str = "Europe/London",
     return ev
 
 
+def _msnr(name):
+    def run(df, bar):
+        from gold_council.strategies import msnr
+        return getattr(msnr, name)(df, bar)
+    return run
+
+
 DETECTORS = {
+    "snr": _msnr("snr_events"),
+    "bos": _msnr("bos"),
+    "crt": _msnr("crt"),
+    "turtle_soup_wick": _msnr("turtle_soup_wick"),
     "fvg": fvg,
     "donchian": donchian_breakout,
     "nr7": nr7,

@@ -1,0 +1,42 @@
+id: crt_two_candle
+spec_id: S23
+version: 0.1.0
+status: draft
+family: liquidity
+instrument: XAUUSD
+setup_tf: H4
+context_tf: D1
+detector: crt
+parameters:
+  model: classic_2_candle
+  tf_alignment:
+    D1: H1
+    H4: M15
+    H1: M5
+  target_1: 50% of candle-1 range
+  target_2: opposite end
+  stop: beyond purge extreme
+source_refs:
+- source_id: E04
+  location: p32-33
+  note: candle 1 range; candle 2 purges and closes back inside; target 50%
+- source_id: E04
+  location: p40
+  note: timeframe alignment table; SL beyond high/low; targets 50% and opposite end
+- source_id: E04
+  location: p39
+  note: 4H CRT times 1/5/9 (NY local) - time filter
+- source_id: E03
+  location: p44
+  note: Alchemist example uses previous-day range (CRT) with SBR
+unresolved:
+- 'Spec Step 9: CRT must not be silently imported - registered here explicitly as
+  its own hypothesis (S23)'
+- Entry 'Model 1' on the lower timeframe is only loosely defined (E04 p10)
+- Time filters (1/5/9 am) need a timezone decision (NY local assumed by source)
+- Bias requirement (HTF order flow, seasonality) is discretionary
+- Human review
+limitations:
+- E04 claims are unverified; free third-party compilation
+approved_by: null
+approved_at: null

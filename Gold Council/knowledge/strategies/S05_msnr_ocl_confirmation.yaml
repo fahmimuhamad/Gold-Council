@@ -1,6 +1,6 @@
 id: msnr_ocl_confirmation
 spec_id: S05
-version: 0.1.0
+version: 0.2.0
 status: draft
 family: price_action
 instrument: XAUUSD
@@ -8,11 +8,18 @@ setup_tf: M15
 context_tf: H1
 detector: null
 parameters: {}
-source_refs: []
+source_refs:
+- source_id: E03
+  location: p40,p45
+  note: OCL used ('Daily OCL', 'H1 OCL') but never defined
+- source_id: E03
+  location: p9
+  note: '''GAP or Open-Close'' SNR - probable meaning of OCL (interpretation)'
 unresolved:
-- OCL formation and price
+- 'OCL is NOT defined in E03. Working hypothesis: OCL = Open-Close Level = Gap SNR
+  (needs user/human confirmation)'
 - Confirmation rule and timeframe relationship
-- Source E02 not acquired / not reviewed
+- No original MSNR source yet
 limitations:
 - Hypothesis only; no evidence of profitability on XAUUSD
 approved_by: null
