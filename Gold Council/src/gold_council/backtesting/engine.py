@@ -57,9 +57,14 @@ def _adverse(px: float, side: str, amount: float, entering: bool) -> float:
     return px + sign * amount
 
 
+def n_rows_ok(df: pd.DataFrame) -> bool:
+    return len(df) >= 2
+
+
 def run(df: pd.DataFrame, plans: list[TradePlan], costs: Costs = Costs()) -> list[TradeResult]:
     o, h, l, c = (df[x].to_numpy() for x in ("open", "high", "low", "close"))
     times = list(df["time"]) if "time" in df else None
+    bar_dur = (df["time"].diff().dropna().min() if times is not None and n_rows_ok(df) else None)
     n = len(df)
     results: list[TradeResult] = []
     busy_until = -1
@@ -108,7 +113,10 @@ def run(df: pd.DataFrame, plans: list[TradePlan], costs: Costs = Costs()) -> lis
         exit_px = _adverse(exit_px, p.side, cost, entering=False)
         pnl = (exit_px - entry) if long else (entry - exit_px)
         if costs.financing_per_year and times is not None:
-            days = (times[exit_i] - times[start]).total_seconds() / 86400
+            # exits at an open (CHANNEL, SL_GAP) end at that open; intrabar/END_OF_DATA exits are charged
+            # through the END of the exit bar (conservative)
+            end_t = times[exit_i] if reason in ("CHANNEL", "SL_GAP") else times[exit_i] + bar_dur
+            days = (end_t - times[start]).total_seconds() / 86400
             pnl -= entry * costs.financing_per_year * days / 365
         results.append(TradeResult(p.plan_id, p.side, start, float(entry), exit_i, float(exit_px), reason, pnl / risk))
         busy_until = exit_i

@@ -81,3 +81,13 @@ def test_crt_time_filter_and_buffer():
     assert plans and all(int(df["ny_open_hour"].iloc[p.bar_index]) == 9 for p in plans)
     p = plans[0]
     assert p.side == "LONG" and p.target == 106 and p.stop < 99
+
+
+def test_financing_charged_through_end_of_intrabar_exit_bar():
+    t = pd.date_range("2026-01-05", periods=3, freq="1D", tz="UTC")
+    df = pd.DataFrame([(100, 101, 99, 100), (100, 101, 99.5, 100.5), (100.5, 100.6, 94, 95)],
+                      columns=["open", "high", "low", "close"]).assign(time=t)
+    p = TradePlan("p", 0, "LONG", stop=95, target=math.inf)
+    (r0,) = run(df, [p]); (r1,) = run(df, [p], Costs(financing_per_year=0.365))
+    # entry bar1 open, stop hit inside bar2 -> charged 2 days (to END of bar 2): 100*0.001*2 = 0.2
+    assert r1.r == pytest.approx(r0.r - 0.2 / 5)

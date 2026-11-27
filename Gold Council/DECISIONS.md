@@ -13,3 +13,5 @@
 - 2026-11-27: Will not bypass website bot checks to download papers. Those stay manual.
 - 2026-11-27: E03 (Alchemist) and E04 (TS&CRT) accepted as user-supplied research sources (local only). CRT registered explicitly as S23 rather than merged into S06. OCL treated as UNRESOLVED (hypothesis: Open-Close/Gap level) instead of guessed.
 - 2026-11-27 (USER): OCL = Open-Close (Gap) level. S05 now uses the Gap SNR detector (GAP_BULL / GAP_BEAR).
+- 2026-11-27: Round-2 weekly bias: close rules take precedence over wick rules (pre-registration bullet order). An outside week closing above the prior high = BULL. The reviewer flagged this as ambiguous; the decision was made before running.
+- 2026-11-27: Financing is charged through the end of the exit bar for intrabar exits (conservative fix from pre-run review).
