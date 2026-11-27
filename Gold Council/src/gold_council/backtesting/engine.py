@@ -29,6 +29,7 @@ class TradePlan:
     target: float
     expires_bars: int = 1   # reserved for limit orders (not implemented); market plans fill at next open
     source: str = ""
+    exit_channel: int | None = None   # exit when a close breaks the opposite N-bar channel (prior bars only)
 
 
 @dataclass(frozen=True)
@@ -36,6 +37,7 @@ class Costs:
     spread: float = 0.0          # price units, round trip half applied at entry and half at exit
     slippage: float = 0.0        # price units per fill, adverse
     latency_bars: int = 0        # extra bars before the order can fill
+    financing_per_year: float = 0.0   # fraction of entry price charged per year held (longs and shorts)
 
 
 @dataclass
@@ -56,7 +58,8 @@ def _adverse(px: float, side: str, amount: float, entering: bool) -> float:
 
 
 def run(df: pd.DataFrame, plans: list[TradePlan], costs: Costs = Costs()) -> list[TradeResult]:
-    o, h, l = df["open"].to_numpy(), df["high"].to_numpy(), df["low"].to_numpy()
+    o, h, l, c = (df[x].to_numpy() for x in ("open", "high", "low", "close"))
+    times = list(df["time"]) if "time" in df else None
     n = len(df)
     results: list[TradeResult] = []
     busy_until = -1
@@ -81,7 +84,10 @@ def run(df: pd.DataFrame, plans: list[TradePlan], costs: Costs = Costs()) -> lis
             results.append(TradeResult(p.plan_id, p.side, start, entry, None, None, "INVALID"))
             continue
         exit_px, exit_i, reason = None, None, "END_OF_DATA"
+        exit_next_open = False
         for j in range(start, n):
+            if exit_next_open:                      # channel exit decided at previous close
+                exit_px, exit_i, reason = o[j], j, "CHANNEL"; break
             # gap at open (not on the entry bar, whose open IS the entry)
             if j > start:
                 if (long and o[j] <= p.stop) or (not long and o[j] >= p.stop):
@@ -92,11 +98,18 @@ def run(df: pd.DataFrame, plans: list[TradePlan], costs: Costs = Costs()) -> lis
                 exit_px, exit_i, reason = p.stop, j, "SL"; break
             if hit_tp:
                 exit_px, exit_i, reason = p.target, j, "TP"; break
+            if p.exit_channel and j >= p.exit_channel:
+                w = slice(j - p.exit_channel, j)     # prior N bars, excluding j
+                if (long and c[j] < l[w].min()) or (not long and c[j] > h[w].max()):
+                    exit_next_open = True
         if exit_px is None:
             exit_i = n - 1
             exit_px = df["close"].iloc[-1]
         exit_px = _adverse(exit_px, p.side, cost, entering=False)
         pnl = (exit_px - entry) if long else (entry - exit_px)
+        if costs.financing_per_year and times is not None:
+            days = (times[exit_i] - times[start]).total_seconds() / 86400
+            pnl -= entry * costs.financing_per_year * days / 365
         results.append(TradeResult(p.plan_id, p.side, start, float(entry), exit_i, float(exit_px), reason, pnl / risk))
         busy_until = exit_i
     return results
@@ -135,7 +148,7 @@ def metrics(results: list[TradeResult]) -> dict:
         "max_drawdown_r": float((peak - eq).max()), "avg_win_r": float(r[r > 0].mean()) if (r > 0).any() else 0.0,
         "avg_loss_r": float(r[r < 0].mean()) if (r < 0).any() else 0.0,
         "expectancy_ci95_block_bootstrap": [lo, hi],
-        "exits": {k: sum(1 for x in done if x.reason == k) for k in ("TP", "SL", "SL_GAP", "END_OF_DATA")},
+        "exits": {k: sum(1 for x in done if x.reason == k) for k in ("TP", "SL", "SL_GAP", "CHANNEL", "END_OF_DATA")},
     })
     return out
 
