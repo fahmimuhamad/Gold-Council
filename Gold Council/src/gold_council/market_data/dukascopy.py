@@ -53,7 +53,9 @@ def fetch_month(symbol: str, year: int, month: int, side: str, cache: Path, paus
                 raw = r.read()
             if raw:
                 lzma.decompress(raw)          # verify it's a real data file before caching
-            f.write_bytes(raw)
+            tmp = f.with_suffix(f".tmp{id(raw)}")
+            tmp.write_bytes(raw)
+            tmp.replace(f)                    # atomic: readers never see a partial file
             time.sleep(pause)
             return raw
         except Exception:
