@@ -12,4 +12,4 @@ Add one request per missing concept: request ID, requesting agent, exact concept
 | RQ-007 | coordinator | Real/nominal yields as-released | D02 FRED/ALFRED | M3 macro context | P2 | VERIFIED_LOCAL (latest values only) | ALFRED vintages need a free FRED API key; deferred |
 | RQ-008 | coordinator | Remaining P1 books (B01-B05, B08-B10) | catalog | M1 library | P1 | NEEDS_USER_ACCESS | Rights check by Librarian, then user purchase |
 | RQ-009 | coordinator | OCL exact definition | user | S05 | P1 | RESOLVED | User confirmed OCL = Open-Close (Gap) level |
-| RQ-010 | coordinator | ICT FVG, displacement, sweep definitions | E01 ICT primary | S01-S03 | P1 | SEARCHING | Librarian searching ICT primary sources (user has no notes) |
+| RQ-010 | coordinator | ICT FVG, displacement, sweep definitions | E05 secondary (+E01 titles) | S01-S03 | P1 | FOUND_OPEN (secondary) | Encoded as drafts; primary video content unverified |

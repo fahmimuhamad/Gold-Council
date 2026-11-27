@@ -1,18 +1,30 @@
 id: ict_displacement_cisd
 spec_id: S02
-version: 0.1.0
+version: 0.2.0
 status: draft
 family: liquidity
 instrument: XAUUSD
 setup_tf: M15
 context_tf: H1
-detector: null
-parameters: {}
-source_refs: []
+detector: cisd
+parameters:
+  displacement_body_atr_mult: 1.5
+  displacement_min_body_ratio: 0.6
+  atr_n: 14
+source_refs:
+- source_id: E05
+  location: LuxAlgo 'displacement', alphaexcapital
+  note: no universal numeric threshold (SECONDARY)
+- source_id: E05
+  location: LuxAlgo/fxnx/tradingfinder 'CISD'
+  note: close through open of prior opposing run (SECONDARY)
 unresolved:
-- 'Displacement: quantitative threshold (ATR multiple? body ratio?)'
-- CISD formal definition and confirmation timing
-- Source E01 not acquired / not reviewed
+- Displacement thresholds are placeholders (ICT gives none)
+- CISD reference run definition (single vs multi-candle run)
+- Entry/SL/TP
+- Primary ICT video content not verified (youtube not reachable; transcripts not cleared
+  for ingestion)
+- Human review
 limitations:
 - Hypothesis only; no evidence of profitability on XAUUSD
 approved_by: null

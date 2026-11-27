@@ -45,7 +45,7 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 | R-01 | P0 | Verify lawful sources for 9 free papers/datasets | Research Librarian | PARTLY DONE: 6 found open, P02/DGS10/WGC unconfirmed |
 | R-02 | P0 | Rights/edition check for 10 P1 books | Research Librarian | DONE: all paid; Street Smarts out of print |
 | R-03 | P0 | MSNR + Alchemist definitions | you → coordinator | PARTLY DONE: E03 received + extracted; OCL/rejection/QML open |
-| R-04 | P1 | ICT official definitions: FVG, displacement, CISD, liquidity sweep, Turtle Soup variants | Librarian → you (transcripts/notes) | OPEN |
+| R-04 | P1 | ICT definitions | Librarian | DONE (secondary tier); primary videos identified, unverified |
 | R-05 | P1 | Broker specifics: symbol suffix, server time/DST, tick value, commissions, swaps | **you** (from MT5) | OPEN |
 | R-06 | P2 | P2 books (8) | Librarian | OPEN |
 | R-07 | P2 | Macro data adapters: FRED/ALFRED, CFTC COT, WGC | Librarian → coordinator | OPEN |
@@ -64,3 +64,4 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 - 2026-11-27: Received E03 Alchemist + E04 TS&CRT. Ingested, vision-reviewed key diagrams, extracted definitions (reports/2026-11-27_msnr_crt_definitions.md). Added SNR/freshness, BOS, CRT, Turtle Soup detectors. 103 tests pass.
 - 2026-11-27: D-12 backtester built; independent review FAIL -> 5 fixes; 116 tests pass. Synthetic sanity run shows no edge (as expected).
 - 2026-11-27: D-11 read-only MT5 history export script written (not compiled - no MetaEditor here). Importer supports broker clocks like America/New_York+7. 118 tests pass.
+- 2026-11-27: User confirmed OCL = Open-Close (Gap). Librarian found ICT primary videos (unreachable) + consistent secondary definitions; encoded FVG lifecycle, displacement, sweep, CISD, volume imbalance as drafts. 129 tests pass.

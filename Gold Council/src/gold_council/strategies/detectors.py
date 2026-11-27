@@ -129,7 +129,18 @@ def _msnr(name):
     return run
 
 
+def _ict(name):
+    def run(df, bar):
+        from gold_council.strategies import ict
+        return getattr(ict, name)(df, bar)
+    return run
+
+
 DETECTORS = {
+    "displacement": _ict("displacement"),
+    "sweep": _ict("liquidity_sweep"),
+    "cisd": _ict("cisd"),
+    "volume_imbalance": _ict("volume_imbalance"),
     "snr": _msnr("snr_events"),
     "bos": _msnr("bos"),
     "crt": _msnr("crt"),
