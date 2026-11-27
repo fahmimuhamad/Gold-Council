@@ -13,7 +13,7 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 | M3 | Read-only MT5 data bridge | NOT STARTED | your Mac + MT5 (cannot be done in this cloud container) |
 | M4 | Manual Claude council on frozen snapshots | NOT STARTED | M2, M3 (or exported CSV) |
 | M5 | Orchestration (mock adapter) + deterministic risk engine | IN PROGRESS: risk engine done + independently reviewed | orchestration not started |
-| M6 | Replay/backtest + baselines | NOT STARTED | M2, historical data |
+| M6 | Replay/backtest + baselines | IN PROGRESS: engine built + reviewed; no real data yet | real XAUUSD history |
 | M7 | Dashboard + journal (Telegram deferred) | NOT STARTED | M5, M6 |
 | M8 | Forward paper trading (interactive, on demand) | NOT STARTED | M6 gates |
 | M9 | MT5 demo-only executor | NOT STARTED | M8 gates; demo account |
@@ -33,7 +33,7 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 | D-09 ✅ | P1 | Regime engine (Step 10), point-in-time, UNKNOWN state | coordinator | D-08 |
 | D-10 ✅ | P2 | CSV importer + validator for MT5 exports (works on files you upload) | coordinator | D-03 |
 | D-11 | P2 | MT5 read-only exporters (.mq5). Code can be written here; compile/verification needs your Mac | coordinator → you | D-10 |
-| D-12 | P2 | Backtest replay, A baseline (deterministic only), leakage tests | coordinator | D-08, D-10, data |
+| D-12 ✅ | P2 | Backtest replay, A baseline (deterministic only), leakage tests | coordinator | D-08, D-10, data |
 | D-13 | P3 | Manual council run (Step 14) as Claude Code subagents | coordinator | D-01, M2, M3 |
 | D-14 | P3 | Dashboard (read-only) | coordinator | M5/M6 |
 | — | Deferred | API adapter, Telegram, scheduled service, demo EA | — | your explicit go-ahead; CLAUDE.md mode |
@@ -62,3 +62,4 @@ Mode: interactive Claude subscription, offline research only. `allow_real_accoun
 ## Progress log
 - 2026-11-27: D-01 (agents regenerated from spec), D-02, D-03, D-04, D-05, D-07, D-08 (6 detectors), D-09 (draft), D-10 done and tested. D-06: the paper sites block automated downloads (bot check), so the papers need a browser. FRED yields downloaded. The independent review found 3 major risk defects; all are fixed with regression tests.
 - 2026-11-27: Received E03 Alchemist + E04 TS&CRT. Ingested, vision-reviewed key diagrams, extracted definitions (reports/2026-11-27_msnr_crt_definitions.md). Added SNR/freshness, BOS, CRT, Turtle Soup detectors. 103 tests pass.
+- 2026-11-27: D-12 backtester built; independent review FAIL -> 5 fixes; 116 tests pass. Synthetic sanity run shows no edge (as expected).

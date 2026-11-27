@@ -6,7 +6,7 @@ Partly built ahead of schedule (tested, but their milestone gates are NOT passed
 Next milestone: **M1, the knowledge library.** Code works, but no books or papers are ingested yet.
 
 Facts:
-- Tests: 103 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
+- Tests: 116 passed (`.venv/bin/python -m pytest -q`). Details: reports/2026-11-27_m0_build_and_review.md
 - Agents: 18 regenerated from spec in .claude/agents (not your originals). Skills: 10 in .claude/skills. Restart Claude Code to load them.
 - Library: 2 sources INDEXED (E03 Alchemist, E04 TS&CRT; 24 chunks; search verified). FRED DFII10/DGS10 downloaded to data/historical/macro (latest values, not vintages).
 - Strategies: 16 drafts (S04-S07 now source-backed, new S23 CRT, F01 BOS), 0 approved, 0 able to emit candidates.
@@ -14,10 +14,12 @@ Facts:
 - Trading: no order execution exists. allow_real_account is hard-locked false.
 - Environment: this cloud session now uses the personal "gold-council" environment (allows eScholarship, AMS, SSRN, FRED/ALFRED, CFTC, AQR).
 
-Not implemented: backtester, paper broker service, council orchestration, MT5 exporters, dashboard, alerts.
+Backtester: baseline A (OHLC, conservative fills, sealed holdout) built + reviewed; sanity-checked on SYNTHETIC data only (reports/2026-11-27_backtester_build_and_review.md).
+
+Not implemented: paper broker service, council orchestration, MT5 exporters, dashboard, alerts.
 
 Next actions (coordinator, no user input needed):
-1. D-12 backtest replay engine + baseline A on synthetic fixtures (no profitability claims).
-2. D-11 MT5 read-only exporter source code (compiling it needs the user's Mac later).
-3. CFTC COT + AQR dataset adapters.
+1. D-11 MT5 read-only exporter source code (compiling it needs the user's Mac later).
+2. CFTC COT + AQR dataset adapters.
+3. Real XAUUSD history (needs MT5 export from the user's Mac) -> first real baseline runs on the dev segment.
 Blocked on user (optional): book purchases, MSNR/Alchemist notes, MT5 history export, 3 paper PDFs via browser.

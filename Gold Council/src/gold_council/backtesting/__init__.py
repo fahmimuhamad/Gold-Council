@@ -1,1 +1,1 @@
-"""NOT IMPLEMENTED yet (see ROADMAP.md). Importing this package provides no functionality."""
+"""Point-in-time OHLC replay (spec Step 19, baseline A: deterministic strategies only)."""

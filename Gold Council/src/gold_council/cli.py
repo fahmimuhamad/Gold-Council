@@ -30,8 +30,9 @@ def cmd_status(args, cfg, root):
         "version": __version__, "mode": cfg.mode, "symbol": cfg.instrument.symbol,
         "allow_real_account": cfg.risk.allow_real_account, "can_place_orders": CAN_PLACE_ORDERS,
         "implemented": ["config", "risk engine (offline)", "knowledge ingest/search", "detectors",
-                        "regime engine (draft thresholds)", "strategy registry", "csv import/validate"],
-        "not_implemented": ["MT5 exporters", "council orchestration", "backtester", "paper broker service",
+                        "regime engine (draft thresholds)", "strategy registry", "csv import/validate",
+                        "baseline A backtester (OHLC, conservative fills)"],
+        "not_implemented": ["MT5 exporters", "council orchestration", "tick-level backtests", "paper broker service",
                             "dashboard", "alerts", "any order execution"],
     }, indent=2))
 
@@ -92,6 +93,60 @@ def cmd_regime(args, cfg, root):
     print(json.dumps(classify(df, cfg.regime, event_risk=None).to_dict(), indent=2))
 
 
+def cmd_backtest(args, cfg, root):
+    import hashlib
+    import subprocess
+    from datetime import datetime, timedelta, timezone
+    from gold_council.backtesting.engine import Costs, chrono_split, metrics, run, segment
+    from gold_council.backtesting.plans import BUILDERS
+    from gold_council.market_data.csv_import import load_csv, validate
+    bar = timedelta(minutes=args.bar_minutes)
+    df = load_csv(args.path, args.tz)
+    rep = validate(df, bar)
+    if not rep.ok:
+        print(json.dumps({"refused": "data failed validation", **rep.__dict__}, indent=2)); return 1
+    split = chrono_split(len(df), gap_bars=args.gap_bars)
+    seg = segment(df, split, args.segment, args.unseal_reason)
+    costs = Costs(spread=args.spread, slippage=args.slippage, latency_bars=args.latency_bars)
+    res = run(seg, BUILDERS[args.strategy](seg, bar), costs)
+    m = metrics(res)
+    try:
+        commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=root).stdout.strip()
+        dirty = bool(subprocess.run(["git", "status", "--porcelain", "src"], capture_output=True, text=True, cwd=root).stdout.strip())
+    except Exception:
+        commit, dirty = "unknown", True
+    manifest = {
+        "run_at": datetime.now(timezone.utc).isoformat(), "experiment": "baseline_A_deterministic",
+        "strategy": args.strategy, "segment": args.segment, "unseal_reason": args.unseal_reason,
+        "data_path": str(args.path), "data_sha256": hashlib.sha256(Path(args.path).read_bytes()).hexdigest(),
+        "broker_tz": args.tz, "bar_minutes": args.bar_minutes, "rows": len(df), "segment_rows": len(seg),
+        "split": split.__dict__, "costs": costs.__dict__, "code_commit": commit, "code_dirty": dirty,
+        "fill_rules": "next-bar open; SL-first when SL and TP share a bar; gaps through SL exit at open",
+        "data_label": args.label, "metrics": m,
+        "warning": "Research result. Not evidence of profitability unless data is real, costs are realistic, "
+                   "and it survives validation + sealed holdout.",
+    }
+    keys = ("strategy", "segment", "unseal_reason", "data_sha256", "broker_tz", "bar_minutes", "split", "costs",
+            "code_commit", "code_dirty", "data_label")
+    run_id = hashlib.sha256(json.dumps({k: manifest[k] for k in keys}, sort_keys=True, default=str)
+                            .encode()).hexdigest()[:12]
+    if args.segment == "holdout":   # every holdout access is recorded permanently
+        log = root / "reports" / "holdout_access_log.md"
+        with open(log, "a", encoding="utf-8") as fh:
+            fh.write(f"- {manifest['run_at']} run={run_id} strategy={args.strategy} "
+                     f"data={manifest['data_sha256'][:12]} reason: {args.unseal_reason.strip()}\n")
+    out = root / "reports" / "backtests" / run_id
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=2, default=str))
+    import csv as _csv
+    with open(out / "trades.csv", "w", newline="") as fh:
+        w = _csv.writer(fh); w.writerow(["plan_id", "side", "entry_index", "entry", "exit_index", "exit", "reason", "r"])
+        for x in res:
+            w.writerow([x.plan_id, x.side, x.entry_index, x.entry, x.exit_index, x.exit, x.reason, x.r])
+    print(json.dumps({"run_id": run_id, "saved_to": str(out.relative_to(root)), "data_label": args.label, **m},
+                     indent=2, default=str))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="gold-council", description="Gold Council offline research tools "
                                  "(research/paper only; no live trading).")
@@ -113,12 +168,24 @@ def main(argv: list[str] | None = None) -> int:
     r = sub.add_parser("regime", help="classify regime of the last completed bar in a CSV")
     r.add_argument("--path", required=True); r.add_argument("--tz", required=True)
     r.add_argument("--bar-minutes", type=int, default=15)
+    b = sub.add_parser("backtest", help="baseline A replay on a CSV (dev/validation segments only by default)")
+    b.add_argument("--path", required=True); b.add_argument("--tz", required=True)
+    b.add_argument("--strategy", required=True, choices=["donchian", "crt_mid", "crt_far"])
+    b.add_argument("--bar-minutes", type=int, default=60)
+    b.add_argument("--segment", choices=["dev", "validation", "holdout"], default="dev")
+    b.add_argument("--unseal-reason", default=None, help="required to touch the holdout")
+    b.add_argument("--gap-bars", type=int, default=24)
+    b.add_argument("--spread", type=float, required=True, help="round-trip spread in price units (e.g. 0.30)")
+    b.add_argument("--slippage", type=float, default=0.0)
+    b.add_argument("--latency-bars", type=int, default=0)
+    b.add_argument("--label", required=True, choices=["SYNTHETIC", "REAL_BROKER", "OTHER"],
+                   help="what kind of data this is; printed on every result")
     args = ap.parse_args(argv)
 
     root = Path(args.config).resolve().parent if args.config else project_root()
     cfg = load_config(args.config)
     fn = {"status": cmd_status, "knowledge": cmd_knowledge, "strategies": cmd_strategies,
-          "data": cmd_data, "regime": cmd_regime}[args.cmd]
+          "data": cmd_data, "regime": cmd_regime, "backtest": cmd_backtest}[args.cmd]
     return fn(args, cfg, root) or 0
 
 

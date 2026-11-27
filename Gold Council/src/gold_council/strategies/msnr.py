@@ -28,6 +28,11 @@ class SnrLevel:
     available_at: pd.Timestamp
     status: str = "FRESH"  # FRESH | UNFRESH | FLIPPED_FRESH
     history: list = field(default_factory=list)   # (bar_index, event)
+    initial_role: str = ""  # role at formation; every freshness walk restarts from it
+
+    def __post_init__(self):
+        if not self.initial_role:
+            self.initial_role = self.role
 
 
 def _bull(o, c):
@@ -72,19 +77,23 @@ def update_freshness(df: pd.DataFrame, lvl: SnrLevel, upto: int | None = None) -
     """Walk bars after formation (point-in-time: only bars <= upto) and update status.
 
     E03 p14: touched by wick or body => UNFRESH.
-    E03 p15: a candle BODY closing through the level => flip (SBR/RBS), new role.
+    E03 p15: a candle CLOSING beyond the level => flip (SBR/RBS), new role. A bar that gaps entirely past
+    the level (previous close on one side, whole bar on the other) also counts as closing through it.
+    Each call recomputes from formation (idempotent; results never depend on earlier calls).
     Interpretation (flagged): after a flip the level is FLIPPED_FRESH; its first subsequent touch that does
     not close through again is recorded as 'flip_retest' and the level becomes UNFRESH afterwards.
     """
     h, l, c = df["high"].to_numpy(), df["low"].to_numpy(), df["close"].to_numpy()
     end = len(df) - 1 if upto is None else min(upto, len(df) - 1)
     lvl.status, lvl.history = "FRESH", []
-    role = lvl.role
+    role = lvl.initial_role
+    p = lvl.price
     for j in range(lvl.formed_index + 1, end + 1):
-        touched = l[j] <= lvl.price <= h[j]
-        if not touched:
+        touched = l[j] <= p <= h[j]
+        gapped = (c[j - 1] < p < l[j]) or (c[j - 1] > p > h[j])
+        if not (touched or gapped):
             continue
-        broke = c[j] > lvl.price if role == "RESISTANCE" else c[j] < lvl.price
+        broke = c[j] > p if role == "RESISTANCE" else c[j] < p
         if broke:
             role = "SUPPORT" if role == "RESISTANCE" else "RESISTANCE"
             lvl.status = "FLIPPED_FRESH"

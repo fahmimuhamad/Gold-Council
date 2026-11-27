@@ -59,7 +59,7 @@ def test_body_close_through_flips_to_support_then_retest():
     lvl = update_freshness(df, lvl, upto=3)
     assert lvl.status == "FLIPPED_FRESH" and lvl.role == "SUPPORT"    # RBS
     lvl = update_freshness(df, lvl)
-    assert lvl.history[-1] == (4, "flip_retest") and lvl.status == "UNFRESH"
+    assert lvl.history == [(2, "first_touch"), (3, "flip"), (4, "flip_retest")] and lvl.status == "UNFRESH"
 
 
 def test_freshness_is_point_in_time():
@@ -127,3 +127,16 @@ def test_bos_no_lookahead_on_random_wicks():
     assert len(sel(full)) > 10 and sel(full) == sel(trunc)
     for e in full:   # the broken swing was confirmed strictly before the breaking bar
         assert e.levels["swing_index"] + 2 < e.bar_index
+
+
+def test_freshness_is_idempotent_across_calls():
+    df, lvl = _resistance_then([(102, 105.3, 101, 103), (103, 108, 102.5, 107), (107, 107.5, 104.8, 106)])
+    update_freshness(df, lvl)                     # full walk first
+    again = update_freshness(df, lvl, upto=2)     # then an earlier point in time
+    assert again.status == "UNFRESH" and again.role == "RESISTANCE" and again.history == [(2, "first_touch")]
+
+
+def test_gap_over_level_is_a_break():
+    df, lvl = _resistance_then([(106.5, 108, 106, 107.5)])   # prev close 102 < 105 < low 106
+    lvl = update_freshness(df, lvl)
+    assert lvl.status == "FLIPPED_FRESH" and lvl.role == "SUPPORT"
