@@ -24,8 +24,19 @@ class ValidationReport:
         return not self.errors and self.duplicates == 0 and self.non_monotonic == 0 and self.bad_ohlc == 0
 
 
+def parse_tz(spec: str) -> tuple[str, int]:
+    """'Europe/Athens' -> (zone, 0). 'America/New_York+7' -> (zone, 7): broker clock = zone local time + 7h,
+    the common 'GMT+2/+3 switching on US DST dates' server convention."""
+    import re
+    m = re.fullmatch(r"([A-Za-z_]+/[A-Za-z_]+)([+-]\d{1,2})?", spec)
+    if not m:
+        raise ValueError(f"bad timezone spec: {spec!r}")
+    return m.group(1), int(m.group(2) or 0)
+
+
 def load_csv(path: str | Path, source_tz: str | None) -> pd.DataFrame:
-    """Load CSV. `source_tz` is the broker server timezone (IANA). None => refuse (fail closed)."""
+    """Load CSV. `source_tz` is the broker server timezone (IANA, optionally '+N' hours, e.g.
+    'America/New_York+7'). None => refuse (fail closed)."""
     if source_tz is None:
         raise ValueError("broker timezone must be stated explicitly; broker time is not assumed to be UTC")
     df = pd.read_csv(path)
@@ -34,7 +45,9 @@ def load_csv(path: str | Path, source_tz: str | None) -> pd.DataFrame:
     if missing:
         raise ValueError(f"missing columns: {missing}")
     t = pd.to_datetime(df["time"])
-    df["time"] = t.dt.tz_localize(source_tz, ambiguous="raise", nonexistent="raise").dt.tz_convert("UTC")
+    zone, shift = ("UTC", 0) if source_tz == "UTC" else parse_tz(source_tz)
+    t = t - pd.Timedelta(hours=shift)
+    df["time"] = t.dt.tz_localize(zone, ambiguous="raise", nonexistent="raise").dt.tz_convert("UTC")
     return df
 
 
