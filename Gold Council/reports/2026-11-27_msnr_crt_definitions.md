@@ -14,7 +14,7 @@ Both are practitioner guides from Telegram. Neither is canonical ICT, and E03 is
 | What is a Gap (open-close) SNR? | Junction between two same-direction candles. It is a "hidden zone" on the HTF and becomes a breakout level on the LTF. | E03 p9 (diagram) | Resolved geometrically |
 | When is an A/V level fresh? | Not yet touched by any wick or body. Any touch makes it unfresh. | E03 p14 | Resolved |
 | Breakout / flip? | A body close through the level flips its role (SBR / RBS). After the flip the level is "fresh again" in its new role. | E03 p14–15 | **Ambiguous**: when freshness resets after a flip. Encoded interpretation is named in code |
-| How is an OCL formed? | **Not defined in E03.** The term is used on p40 and p45 only. Working hypothesis: Open-Close Level = Gap SNR. | E03 p9, p40, p45 | **UNRESOLVED**: needs your confirmation or another source |
+| How is an OCL formed? | **Not defined in E03.** The term is used on p40 and p45 only. Working hypothesis: Open-Close Level = Gap SNR. | E03 p9, p40, p45 | **RESOLVED by user decision 2026-11-27**: OCL = Open-Close (Gap) level |
 | What is a valid BOS? | Body close beyond a swing high/low. A wick through does not count. Wait for the retracement and trade in the BOS direction. | E03 p36–37 | Resolved, except swing length k |
 | Confirmation timing (Alchemist)? | HTF fresh level is tapped with a wick rejection, then a breakout 2 TFs lower (W→H4, D→H1), then a pullback to the right shoulder / QML. | E03 p22 | Partly resolved (QML, rejection thresholds open) |
 | Rejection candle? | Long wick plus a thicker body closing away from the level ("better than a pin bar"). | E03 p16–17 | **UNRESOLVED**: no numeric thresholds |

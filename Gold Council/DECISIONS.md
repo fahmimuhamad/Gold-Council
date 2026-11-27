@@ -12,3 +12,4 @@
 - 2026-11-27: Created the personal cloud environment "gold-council" with a narrow allowlist of research/data hosts.
 - 2026-11-27: Will not bypass website bot checks to download papers. Those stay manual.
 - 2026-11-27: E03 (Alchemist) and E04 (TS&CRT) accepted as user-supplied research sources (local only). CRT registered explicitly as S23 rather than merged into S06. OCL treated as UNRESOLVED (hypothesis: Open-Close/Gap level) instead of guessed.
+- 2026-11-27 (USER): OCL = Open-Close (Gap) level. S05 now uses the Gap SNR detector (GAP_BULL / GAP_BEAR).
