@@ -21,8 +21,8 @@ CSV = ROOT / "data/historical/dukascopy/XAUUSD_H1_dukascopy_bid_utc.csv"
 COSTS = Costs(spread=0.44, slippage=0.10, financing_per_year=0.04)
 
 
-def main():
-    h1 = load_csv(CSV, "UTC")
+def build_tests(h1):
+    """Exactly the pre-registered round-2 tests (refactored out of main, logic unchanged)."""
     sp = chrono_split(len(h1), gap_bars=24)
     dev_end = h1["time"].iloc[sp.dev[1] - 1]                  # last DEV hour (round-1 boundary)
     d1, h4, w1 = resample(h1, "1D"), resample(h1, "4h"), resample(h1, "W")
@@ -41,6 +41,12 @@ def main():
         "R2-4 CRT D1 weekly bias": (d1d, crt_atr_plans(d1d, dur["D1"], bias_at_bar=bias_for_daily(d1d, w1d))),
         "R2-5 Donchian D1 + regime": (d1d, donchian_channel_plans(d1d, dur["D1"], regime=reg)),
     }
+    return tests, dev_end
+
+
+def main():
+    h1 = load_csv(CSV, "UTC")
+    tests, dev_end = build_tests(h1)
     commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     out = {"run_at": datetime.now(timezone.utc).isoformat(), "preregistration": "reports/2026-11-27_preregistration_round2.md",
            "code_commit": commit, "data_sha256": hashlib.sha256(CSV.read_bytes()).hexdigest(),
