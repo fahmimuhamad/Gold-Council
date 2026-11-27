@@ -7,9 +7,9 @@
 #property script_show_inputs
 #property strict
 
-input string InpSymbols    = "XAUUSD,XAGUSD";      // exact broker symbols, comma separated (e.g. XAUUSD.vx)
-input string InpTimeframes = "D1,H4,H1,M15,M5";     // timeframes to export
-input int    InpBars       = 100000;                // max completed bars per symbol/timeframe
+input string InpSymbols    = "XAUUSD";             // exact broker symbol(s), comma separated (e.g. XAUUSD.vx)
+input string InpTimeframes = "H1";                 // one timeframe per run keeps files small (then M15)
+input int    InpBars       = 50000;                 // H1: ~8 years, M15: ~2 years. About 3 MB per file
 input string InpFolder     = "GoldCouncil";         // folder inside the terminal's COMMON Files folder
 
 #define SCHEMA_VERSION "gc-export-1.0"

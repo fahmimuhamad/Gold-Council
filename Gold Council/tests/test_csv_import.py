@@ -37,3 +37,12 @@ def test_bad_tz_spec_rejected(tmp_path):
     p = tmp_path / "x.csv"; p.write_text(CSV)
     with pytest.raises(ValueError):
         load_csv(p, "GMT+2")
+
+
+def test_zipped_csv_is_accepted(tmp_path):
+    import zipfile
+    z = tmp_path / "XAUUSD_H1.zip"
+    with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("XAUUSD_H1.csv", "time,open,high,low,close\n2026-01-05 10:00,1,2,0.5,1.5\n")
+    df = load_csv(z, "UTC")
+    assert len(df) == 1 and str(df["time"].iloc[0]) == "2026-01-05 10:00:00+00:00"
